@@ -1,4 +1,4 @@
-import { SetStateAction, useState, ChangeEvent, FormEvent, } from 'react'
+import { useState, ChangeEvent, FormEvent, } from 'react'
 
 import { CompletedTodoList } from './CompletedTodoList'
 import { TodoList } from './TodoList'
@@ -6,18 +6,14 @@ import { TodoType } from './Todo'
 
 import '../styles/styles.css'
 
-// Define this as an array of TodoType
 const initialTodos: Array<TodoType> = [];
 
 export const App = () => {
-  // Initialise this with a correctly defined initialTodos
   const [todos, setTodos] = useState(initialTodos);
-  
   const [todoInput, setTodoInput] = useState('');
   const [showCompletedTodos, setShowCompletedTodos] = useState(true);
 
-  //Declare the type of the parameter
-  //Declare the type this function returns, too 
+  // add to do======================================
   const addTodo = (text: string): void => {
     if (todos.some(todo => todo.text.toLowerCase() === text.toLowerCase())) {
       alert('That todo already exists!');
@@ -26,20 +22,17 @@ export const App = () => {
     setTodos([...todos, { text, completed: false }]);
   }
 
-  //Declare the type of the parameter
-  //Declare the type this function returns, too 
+  // handle change inputs===========================
   const handleChange = (e: ChangeEvent<HTMLInputElement> ) : void => setTodoInput(e.target.value)
 
-  //Declare the type of the parameter
-  //Declare the type this function returns, too 
+  // handle submit from=============================
   const handleSubmit = (e: FormEvent<HTMLFormElement> ) : void => {
     e.preventDefault();
     addTodo(todoInput);
     setTodoInput('');
   }
 
-  //Declare the type of the parameter
-  //Declare the type this function returns, too 
+  // toggle completion=============================
   const toggleTodoCompletion = (target: TodoType) : void => {
     const updatedTodos = todos.map(todo =>
       todo === target ? { ...todo, completed: !todo.completed } : todo
@@ -47,15 +40,13 @@ export const App = () => {
     setTodos(updatedTodos)
   }
 
-  //Declare the type of the parameter
-  //Declare the type this function returns, too 
+  // remove todo=================================
   const removeTodo = (target: TodoType) : void => {
     setTodos(todos.filter(todo => todo !== target))
   }
-
+  
   const incompleteTodos = todos.filter(todo => !todo.completed)
   const completedTodos = todos.filter(todo => todo.completed)
-
 
   return (
     <div className="App">

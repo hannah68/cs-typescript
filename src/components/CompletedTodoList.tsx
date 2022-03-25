@@ -1,6 +1,5 @@
 import { Todo, TodoType } from './Todo'
 
-// Define this
 interface StateProps {
   completedTodos: TodoType[],
   toggleTodoCompletion: (target: TodoType) => void,
@@ -9,8 +8,8 @@ interface StateProps {
 
 export const CompletedTodoList = (props: StateProps) => {
 
-  const {completedTodos, toggleTodoCompletion, removeTodo} = props
-
+  const {completedTodos, toggleTodoCompletion, removeTodo} = props;
+  
   return (
     <section className="completed-list-section">
       <h2 className="title">COMPLETED</h2>
