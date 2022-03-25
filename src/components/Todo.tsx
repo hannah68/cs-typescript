@@ -1,8 +1,15 @@
 // Define this
-export interface TodoType {}
+export interface TodoType {
+  text: string;
+  completed: boolean;
+}
 
 // Define this
-interface StateProps {}
+interface StateProps {
+  todo: TodoType
+  toggleTodoCompletion: (target: TodoType) => void
+  removeTodo: (target: TodoType) => void
+}
 
 export const Todo = (props: StateProps) => {
 

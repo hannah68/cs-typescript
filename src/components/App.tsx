@@ -1,4 +1,4 @@
-import { SetStateAction, useState } from 'react'
+import { SetStateAction, useState, ChangeEvent, FormEvent, } from 'react'
 
 import { CompletedTodoList } from './CompletedTodoList'
 import { TodoList } from './TodoList'
@@ -7,40 +7,40 @@ import { TodoType } from './Todo'
 import '../styles/styles.css'
 
 // Define this as an array of TodoType
-const initialTodos = []
+const initialTodos: Array<TodoType> = [];
 
 export const App = () => {
   // Initialise this with a correctly defined initialTodos
-  const [todos, setTodos] = useState(undefined);
+  const [todos, setTodos] = useState(initialTodos);
   
-  const [todoInput, setTodoInput] = useState('')
-  const [showCompletedTodos, setShowCompletedTodos] = useState(true)
+  const [todoInput, setTodoInput] = useState('');
+  const [showCompletedTodos, setShowCompletedTodos] = useState(true);
 
   //Declare the type of the parameter
   //Declare the type this function returns, too 
-  const addTodo = text => {
+  const addTodo = (text: string): void => {
     if (todos.some(todo => todo.text.toLowerCase() === text.toLowerCase())) {
-      alert('That todo already exists!')
-      return
+      alert('That todo already exists!');
+      return;
     }
-    setTodos([...todos, { text, completed: false }])
+    setTodos([...todos, { text, completed: false }]);
   }
 
   //Declare the type of the parameter
   //Declare the type this function returns, too 
-  const handleChange = e => setTodoInput(e.target.value)
+  const handleChange = (e: ChangeEvent<HTMLInputElement> ) : void => setTodoInput(e.target.value)
 
   //Declare the type of the parameter
   //Declare the type this function returns, too 
-  const handleSubmit = e => {
-    e.preventDefault()
-    addTodo(todoInput)
-    setTodoInput('')
+  const handleSubmit = (e: FormEvent<HTMLFormElement> ) : void => {
+    e.preventDefault();
+    addTodo(todoInput);
+    setTodoInput('');
   }
 
   //Declare the type of the parameter
   //Declare the type this function returns, too 
-  const toggleTodoCompletion = target => {
+  const toggleTodoCompletion = (target: TodoType) : void => {
     const updatedTodos = todos.map(todo =>
       todo === target ? { ...todo, completed: !todo.completed } : todo
     )
@@ -49,12 +49,13 @@ export const App = () => {
 
   //Declare the type of the parameter
   //Declare the type this function returns, too 
-  const removeTodo = target => {
+  const removeTodo = (target: TodoType) : void => {
     setTodos(todos.filter(todo => todo !== target))
   }
 
   const incompleteTodos = todos.filter(todo => !todo.completed)
   const completedTodos = todos.filter(todo => todo.completed)
+
 
   return (
     <div className="App">
@@ -79,7 +80,7 @@ export const App = () => {
               type="text"
               name="text"
               required
-              minlength="3"
+              minLength={3}
               onChange={handleChange}
               value={todoInput}
             />
